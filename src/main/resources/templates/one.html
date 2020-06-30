@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+    <script src="https://unpkg.com/vue-router"></script>
+    <link rel="stylesheet" href="/css/common.css">
+</head>
+<body>
+    <div id="app-room">
+        <div><span style="font-weight: bolder;">Room name:</span> {{ room.roomName }}</div>
+        <div><span style="font-weight: bolder;">Country:</span> {{ room.roomCountry }}</div>
+        <button v-on:click="clickLamp">{{ stateLamp }}</button>
+    </div>
+    <script src="js/room.js"></script>
+</body>
+</html>
