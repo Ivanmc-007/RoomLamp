@@ -30,7 +30,7 @@ public class WebSocketController {
         return roomService.save(room);
     }
 
-    @JsonView(View.Lamp.class)
+    @JsonView(View.IdLamp.class)
     @MessageMapping("/roomLamp")
     @SendTo("/topic/roomOne")
     public Room clickOnLamp(IdDto id) {

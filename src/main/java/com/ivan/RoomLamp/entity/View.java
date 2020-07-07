@@ -4,7 +4,7 @@ public final class View {
 
     public interface Id {}
 
-    public interface Lamp {}
+    public interface IdLamp extends Id {}
 
     public interface IdName extends Id {}
 

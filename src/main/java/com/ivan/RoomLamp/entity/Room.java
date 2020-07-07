@@ -12,7 +12,8 @@ public class Room {
 
     @JsonView({
             View.IdNameCountry.class,
-            View.IdNameCountryLamp.class})
+            View.IdNameCountryLamp.class,
+            View.IdLamp.class})
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,8 +30,7 @@ public class Room {
 
     @JsonView({
             View.IdNameCountryLamp.class,
-            View.Lamp.class
-    })
+            View.IdLamp.class})
     private boolean lampOn;
 
     public Long getId() {

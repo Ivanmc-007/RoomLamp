@@ -11,8 +11,12 @@ function connect() {
 //        console.log("***Connected IN ROOM*** "+ frame);
         stompClient.subscribe("/topic/roomOne", message => {
             if(message.body) {
+                console.log("*****");
+                console.log(message);
+
                 let roomFromServer = JSON.parse(message.body);
-                app2.room.lampOn = roomFromServer.lampOn;
+                if(roomFromServer.id == app2.room.id)
+                    app2.room.lampOn = roomFromServer.lampOn;
             }
         });
     });
