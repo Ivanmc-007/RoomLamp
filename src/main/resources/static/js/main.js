@@ -5,8 +5,10 @@ var stompClient = null;
 function connect() {
     var socket = new SockJS("/gs-guide-websocket");
     stompClient = Stomp.over(socket);
+    // отключить debug (засоряет консоль)
+    stompClient.debug = () => {};
     stompClient.connect({}, frame => {
-        console.log("***Connected*** "+ frame);
+        console.log("***Connected ON MAIM*** "+ frame);
         stompClient.subscribe("/topic/rooms", message => {
             if(message.body) {
                 let roomFromServer = JSON.parse(message.body);

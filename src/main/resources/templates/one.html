@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/style.css">
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
@@ -12,12 +13,27 @@
     <link rel="stylesheet" href="/css/common.css">
 </head>
 <body>
-    <div id="app-room">
-        <div><span style="font-weight: bolder;">Room name:</span> {{ room.roomName }}</div>
-        <div><span style="font-weight: bolder;">Country:</span> {{ room.roomCountry }}</div>
-        <button v-on:click="clickLamp">{{ stateLamp }}</button>
-        <div><a href="/">Go to main page</a></div>
+    <div class="wrapper">
+        <header class="header">
+            <div class="container">
+            </div>
+        </header>
+        <div class="content">
+            <div class="container">
+                <div id="app-room" class="content__room">
+                    <div><span style="font-weight: bolder;">Room name:</span> {{ room.roomName }}</div>
+                    <div><span style="font-weight: bolder;">Country:</span> {{ room.roomCountry }}</div>
+                    <button v-on:click="clickLamp">{{ stateLamp }}</button>
+                    <div><a href="/">Go to main page</a></div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container">
+            </div>
+        </footer>
     </div>
+
     <script src="js/room.js"></script>
 </body>
 </html>

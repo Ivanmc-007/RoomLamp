@@ -7,15 +7,13 @@ import com.maxmind.geoip2.record.Country;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -28,25 +26,19 @@ public class GeolocationServiceImpl implements GeolocationService {
     @Value("${local.country.name}")
     private String localCountryName;
 
-    private List<String> localIpAddresses = new ArrayList<String>() {
-        {
-            this.add("0:0:0:0:0:0:0:1");
-            this.add("127.0.0.1");
-        }
-    };
-
     public GeolocationServiceImpl() throws IOException {
-        File database = ResourceUtils.getFile("classpath:static/GeoLite2-Country/GeoLite2-Country.mmdb");
+        ClassPathResource classPathResource = new ClassPathResource("static/GeoLite2-Country/GeoLite2-Country.mmdb");
+        InputStream database = classPathResource.getInputStream();
         dbReader = new DatabaseReader.Builder(database).build();
     }
 
     public Optional<String> getCountryNameByIP(String ipAddress) {
         try {
-            if(isLocalhost(ipAddress)) {
-                LOGGER.info("You use this program on local machine!");
+            InetAddress inetAddress = InetAddress.getByName(ipAddress);
+            if(isLocalhost(inetAddress)) {
+                LOGGER.info("You are using this program on local machine!");
                 return Optional.of(localCountryName);
             }
-            InetAddress inetAddress = InetAddress.getByName(ipAddress);
             CountryResponse countryResponse = dbReader.country(inetAddress);
             Country country = countryResponse.getCountry();
             return Optional.of(country.getName());
@@ -60,11 +52,7 @@ public class GeolocationServiceImpl implements GeolocationService {
         return Optional.empty();
     }
 
-    private boolean isLocalhost(String ipAddress) {
-        for(String address: localIpAddresses) {
-            if(address.equals(ipAddress))
-                return true;
-        }
-        return false;
+    private boolean isLocalhost(InetAddress inetAddress) {
+        return inetAddress.isSiteLocalAddress();
     }
 }

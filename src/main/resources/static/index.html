@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/style.css">
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
@@ -10,27 +11,46 @@
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
 </head>
 <body>
-    <div id="app">
-        <form v-on:submit.prevent="saveRoom">
-            <input v-model="roomName" placeholder="Name of room">
-            <select v-model="roomCountry">
-                <option>Belarus</option>
-                <option>Russia</option>
-                <option>Ukraine</option>
-            </select>
-            <button type="submit">Create</button>
-        </form>
+    <div class="wrapper">
+        <header class="header">
+            <div class="container">
+            </div>
+        </header>
+        <div class="content">
+            <div class="container">
+                <div id="app">
+                    <form v-on:submit.prevent="saveRoom" class="form">
+                        <div class="form__text">
+                            <input v-model="roomName" placeholder="Name of room">
+                        </div>
 
-        <form action="/roomWithLamp">
-            <ul>
-                <li v-for="room in rooms" :key="room.id">
-                    <label><span style="font-weight: bolder;">Room Name:</span> {{ room.roomName }},</label>
-                    <label><span style="font-weight: bolder;">Country:</span> {{ room.roomCountry }}</label>
-                    <button type="submit" name="roomId" v-bind:value="room.id">Visit room</button>
-                </li>
-            </ul>
-        </form>
+                        <select v-model="roomCountry" class="form__select">
+                            <option>Belarus</option>
+                            <option>Russia</option>
+                            <option>Ukraine</option>
+                        </select>
+                        <button type="submit" class="form__button">Create</button>
+                    </form>
+
+                    <form action="/roomWithLamp">
+                        <ul class="form__list">
+                            <li v-for="room in rooms" :key="room.id">
+                                <label><span style="font-weight: bolder;">Room Name:</span> {{ room.roomName }},</label>
+                                <label><span style="font-weight: bolder;">Country:</span> {{ room.roomCountry }}</label>
+                                <button type="submit" name="roomId" v-bind:value="room.id" class="form__button">Visit room</button>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container">
+
+            </div>
+        </footer>
     </div>
+
     <script src="js/main.js"></script>
 </body>
 </html>

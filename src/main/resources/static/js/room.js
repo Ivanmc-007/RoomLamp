@@ -7,13 +7,14 @@ var router = new VueRouter({
 function connect() {
     var socket = new SockJS("/room-lamp-websocket");
     stompClient = Stomp.over(socket);
+    // отключить debug (засоряет консоль)
+    stompClient.debug = () => {};
     stompClient.connect({}, frame => {
-//        console.log("***Connected IN ROOM*** "+ frame);
+        console.log("***Connected IN ROOM*** "+ frame);
         stompClient.subscribe("/topic/roomOne", message => {
             if(message.body) {
-                console.log("*****");
-                console.log(message);
-
+//                console.log("*****");
+//                console.log(message);
                 let roomFromServer = JSON.parse(message.body);
                 if(roomFromServer.id == app2.room.id)
                     app2.room.lampOn = roomFromServer.lampOn;
