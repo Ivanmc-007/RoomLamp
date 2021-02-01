@@ -1,6 +1,5 @@
-package com.ivan.RoomLamp;
+package com.ivan.RoomLamp.service;
 
-import com.ivan.RoomLamp.service.GeolocationService;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +18,8 @@ class GeolocationServiceTests {
 	private final static String UKRAINE_IP = "185.121.110.115";
 	private final static String Local_IP_1 = "172.17.0.1";
 	private final static String Local_IP_2 = "192.168.1.2";
+    private final static String Local_IP_3 = "127.0.0.1";
+	private final static String Local_IP_4 = "0:0:0:0:0:0:0:1";
 
 	@Value("${local.country.name}")
 	private String localCountry;
@@ -43,6 +44,8 @@ class GeolocationServiceTests {
 	public void checkCountryByLocalIP() {
 		Assert.assertEquals(geolocationService.getCountryNameByIP(Local_IP_1).orElse(""), localCountry);
 		Assert.assertEquals(geolocationService.getCountryNameByIP(Local_IP_2).orElse(""), localCountry);
+        Assert.assertEquals(geolocationService.getCountryNameByIP(Local_IP_3).orElse(""), localCountry);
+		Assert.assertEquals(geolocationService.getCountryNameByIP(Local_IP_4).orElse(""), localCountry);
 	}
 
 }

@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Optional;
 
@@ -53,6 +55,16 @@ public class GeolocationServiceImpl implements GeolocationService {
     }
 
     private boolean isLocalhost(InetAddress inetAddress) {
-        return inetAddress.isSiteLocalAddress();
+        if(inetAddress.isSiteLocalAddress())
+            return true;
+        // Check if the address is a valid special local or loop back
+        if (inetAddress.isAnyLocalAddress() || inetAddress.isLoopbackAddress())
+            return true;
+        // Check if the address is defined on any interface
+        try {
+            return NetworkInterface.getByInetAddress(inetAddress) != null;
+        } catch (SocketException e) {
+            return false;
+        }
     }
 }
